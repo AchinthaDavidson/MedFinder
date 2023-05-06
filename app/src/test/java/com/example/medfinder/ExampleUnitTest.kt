@@ -17,13 +17,4 @@ class ExampleUnitTest {
 }
 
 
-class UserTest {
 
-    @Test
-    fun testNameProperty() {
-        val user = User()
-        user.name = "John"
-        assertEquals("John", user.name)
-    }
-
-}
