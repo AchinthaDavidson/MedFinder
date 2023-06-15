@@ -3,77 +3,72 @@ package com.example.medfinder
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.io.File
 import java.util.*
 
+class popup : AppCompatActivity() {
 
-class Advertisment_add : AppCompatActivity() {
-
-    lateinit var discription:EditText
-    lateinit var bck_to_adv_home:ImageButton
-    lateinit var chooseImageBtn: Button
-    lateinit var uploadImageBtn: Button
-    lateinit var imageView: ImageView
-    lateinit var img :String
+    private lateinit var name: EditText
+    private lateinit var dis:EditText
+    private lateinit var  imageView:ImageView
+    private lateinit var cancel:Button
+    private lateinit var update:Button
+    private lateinit var auth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
     var fileUri: Uri? = null;
-
-
-
+    private lateinit var uuid:String
+//    private lateinit var uid:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.advertisment_add)
-        // on below line initializing variables for buttons and image view.
-        chooseImageBtn = findViewById(R.id.idBtnChooseImage)
-        uploadImageBtn = findViewById(R.id.idBtnUploadImage)
-        imageView = findViewById(R.id.idIVImage)
-        discription=findViewById(R.id.dis)
-        bck_to_adv_home=findViewById(R.id.bck_to_adv_home)
+        setContentView(R.layout.activity_popup)
+        getSupportActionBar()?.hide()
 
-        bck_to_adv_home.setOnClickListener{
-            val intent = Intent(this, Advertisments::class.java)
-            startActivity(intent)
+        name=findViewById(R.id.drgname)
+        dis=findViewById(R.id.drgDesc)
+        cancel=findViewById(R.id.cancle)
+        update=findViewById(R.id.update)
+        imageView=findViewById(R.id.adImage)
+        auth= FirebaseAuth.getInstance()
+        mDbRef=FirebaseDatabase.getInstance().getReference()
+
+        val name1=intent.getStringExtra("name")
+        val dis1=intent.getStringExtra("dis")
+        val img= intent.getStringExtra("img")
+        uuid=img.toString()
+//
+        name.setText(name1)
+        dis.setText(dis1)
+
+        cancel.setOnClickListener {
+            val intent= Intent(this, home::class.java)
+
+
+                this.startActivity(intent)
         }
 
-        discription.setText(intent.getStringExtra("dis"))
-         img = intent.getStringExtra("id").toString()
+        update.setOnClickListener {
 
-        if (img!=null){
-            val strogeRef = FirebaseStorage.getInstance().reference.child(img!!)
+            uploadImage()
+            val name=name.text.toString()
+            val discription=dis.text.toString()
 
-            val localfile= File.createTempFile("tempImage","jpg")
-            strogeRef.getFile(localfile).addOnSuccessListener {
-
-                val bitmap= BitmapFactory.decodeFile(localfile.absolutePath)
-                imageView.setImageBitmap(bitmap)
-
-
-            }.addOnFailureListener{
-
-            }
+            addUserToDatabase(name,discription,auth.currentUser?.uid!!)
 
         }
-
-
-
-
-        // on below line adding click listener for our choose image button.
-        chooseImageBtn.setOnClickListener {
+        imageView.setOnClickListener {
             // on below line calling intent to get our image from phone storage.
             val intent = Intent()
             // on below line setting type of files which we want to pick in our case we are picking images.
@@ -91,23 +86,31 @@ class Advertisment_add : AppCompatActivity() {
             )
         }
 
-        // on below line adding click listener to upload image.
-        uploadImageBtn.setOnClickListener {
-            // on below line calling upload image button to upload our image.
-            uploadImage()
-        }
+
     }
 
-    // on below line adding on activity result method this method is called when user picks the image.
+    private fun addUserToDatabase(name:String,description:String,uid:String){
+
+
+        mDbRef= FirebaseDatabase.getInstance().getReference()
+
+
+        mDbRef.child("medicine").child(uid).child(intent.getStringExtra("uid")!!).setValue(medicine(name, description, intent.getStringExtra("uid")!!,uuid))
+
+        val intent= Intent(this, home::class.java)
+        this.startActivity(intent)
+
+
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // on below line we are checking if the result is ok
-        if (requestCode == 22 && resultCode == RESULT_OK && data != null && data.data != null) {
+        if (requestCode == 22 && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
             // on below line initializing file uri with the data which we get from intent
             fileUri = data.data
             try {
                 // on below line getting bitmap for image from file uri.
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileUri);
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap( contentResolver, fileUri);
                 // on below line setting bitmap for our image view.
                 imageView.setImageBitmap(bitmap)
             } catch (e: Exception) {
@@ -116,6 +119,7 @@ class Advertisment_add : AppCompatActivity() {
             }
         }
     }
+
 
     // on below line creating a function to upload our image.
     fun uploadImage() {
@@ -130,18 +134,13 @@ class Advertisment_add : AppCompatActivity() {
 
             // on below line creating a storage refrence for firebase storage and creating a child in it with
             // random uuid.
-            var uuid=UUID.randomUUID().toString()
+            uuid= UUID.randomUUID().toString()
             val ref: StorageReference = FirebaseStorage.getInstance().getReference()
                 .child(uuid)
 
-            println(uuid)
-            var dis=discription.text.toString()
-            mDbRef= FirebaseDatabase.getInstance().getReference()
-            if (img!=null) {
-                mDbRef.child("image").child(img).removeValue()
-            }
-
-            mDbRef.child("image").child(uuid).setValue(advertisment(uuid,dis))
+//            println(uuid)
+//            mDbRef= FirebaseDatabase.getInstance().getReference()
+//            mDbRef.child("image").child(uuid).setValue(advertisment(uuid,""))
 
 
             // on below line adding a file to our storage.
@@ -150,10 +149,6 @@ class Advertisment_add : AppCompatActivity() {
                 // in this case we are dismissing our progress dialog and displaying a toast message
                 progressDialog.dismiss()
                 Toast.makeText(applicationContext, "Image Uploaded..", Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(this, Advertisments::class.java)
-                startActivity(intent)
-
             }.addOnFailureListener {
                 // this method is called when there is failure in file upload.
                 // in this case we are dismissing the dialog and displaying toast message
@@ -163,4 +158,5 @@ class Advertisment_add : AppCompatActivity() {
             }
         }
     }
+
 }

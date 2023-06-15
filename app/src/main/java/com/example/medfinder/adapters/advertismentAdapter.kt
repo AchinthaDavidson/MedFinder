@@ -1,50 +1,83 @@
 package com.example.medfinder.adapters
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.medfinder.R
+import com.example.medfinder.*
+import com.example.medfinder.advertisment
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
-class advertismentAdapter(private var advidheda:List<String>,
-                          private var advid:List<String>,
-                          private var advimg:List<String>,
-                          private var advedt:List<String>,
-                          private var advdlt:List<String> ):
-    RecyclerView.Adapter<advertismentAdapter.ViewHolder>() {
+class advertismentAdapter(val context: Context, val userList: ArrayList<advertisment>) :
+    RecyclerView.Adapter<advertismentAdapter.UserViewHolder>() {
 
-        inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-            val adverIdhed : TextView = itemView.findViewById(R.id.adv_id_head)
-            val adveredtId : TextView = itemView.findViewById(R.id.edt_adv_id)
-            val adverimg : TextView = itemView.findViewById(R.id.adv_img_btn)
-            val adverEdt : TextView = itemView.findViewById(R.id.edt_adv_btn)
-            val adverDel : TextView = itemView.findViewById(R.id.dlt_adv_btn)
+    private lateinit var mDbRef: DatabaseReference
+
+    class UserViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+
+        val discription =itemView.findViewById<TextView>(R.id.dis)
+        val img =itemView.findViewById<ImageView>(R.id.adv_img_btn)
+        val edit=itemView.findViewById<Button>(R.id.edt_adv_btn)
+        val delete =itemView.findViewById<Button>(R.id.dlt_adv_btn)
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder{
+        val view:View = LayoutInflater.from(context).inflate(R.layout.advertismentlist,parent,false)
+        return UserViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        val currentUser=userList[position]
+
+        val strogeRef = FirebaseStorage.getInstance().reference.child(currentUser.i_id.toString())
+
+        val localfile= File.createTempFile("tempImage","jpg")
+        strogeRef.getFile(localfile).addOnSuccessListener {
+
+            val bitmap= BitmapFactory.decodeFile(localfile.absolutePath)
+            holder.img.setImageBitmap(bitmap)
+            holder.discription.setText(currentUser.description)
+
+        }.addOnFailureListener{
 
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val adv = LayoutInflater.from(parent.context).inflate(R.layout.advertismentlist,parent,false)
-        return ViewHolder(adv)
+
+        holder.delete.setOnClickListener {
+            mDbRef= FirebaseDatabase.getInstance().getReference()
+            mDbRef.child("image").child(currentUser.i_id.toString()).removeValue()
+
+        }
+        holder.edit.setOnClickListener {
+
+            val intent = Intent(context, Advertisment_add::class.java)
+//
+            intent.putExtra("dis",currentUser.description)
+            intent.putExtra("id",currentUser.i_id)
+
+
+            context.startActivity(intent)
+        }
+
+
+
     }
+
+
 
     override fun getItemCount(): Int {
-        return advidheda.size
-        return advid.size
-        return advimg.size
-        return advedt.size
-        return advdlt.size
+       return userList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.adverIdhed.text = advidheda[position]
-        holder.adveredtId.text = advid[position]
-        holder.adverimg.text = advimg[position]
-        holder.adverEdt.text = advedt[position]
-        holder.adverDel.text =  advdlt[position]
 
-    }
 }

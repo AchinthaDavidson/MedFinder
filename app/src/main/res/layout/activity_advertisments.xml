@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:text="@string/adv_main_page"
+                android:text="ADMIN PANEL"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -34,20 +34,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/adv_add_page"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/blue2"
-                android:text="@string/adv_add_page"
-                android:padding="10dp"
-                android:onClick="toaddadvpge"
-                app:cornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/adv_add_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/blue2"
+                    android:text="@string/adv_add_page"
+                    android:padding="10dp"
+                    android:onClick="toaddadvpge"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/approvel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginLeft="20dp"
+                    android:backgroundTint="@color/blue2"
+                    android:padding="10dp"
+
+                    android:text="Approve"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -58,7 +81,7 @@
                 app:layout_constraintTop_toBottomOf="@id/adv_add_page">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rec_view_advlist"
+                    android:id="@+id/addrecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
@@ -70,6 +93,66 @@
 
             </RelativeLayout>
 
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="20dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="10dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/adv_id_head"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginTop="40sp"-->
+<!--                        android:text="@string/adv_id"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="22sp" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/edt_adv_id"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="60dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:hint="advertisment Id"-->
+<!--                        android:inputType="textPersonName"-->
+<!--                        android:padding="8dp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/adv_img_btn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="100dp"-->
+<!--                        android:layout_marginTop="20sp"-->
+<!--                        app:srcCompat="@drawable/baseline_image_24"-->
+<!--                        android:layout_marginBottom="20dp"-->
+<!--                        />-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/edt_adv_btn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="edit"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="@color/white"/>-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/dlt_adv_btn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="Delete"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="@color/white"/>-->
+<!--                </LinearLayout>-->
+<!--            </RelativeLayout>-->
         </LinearLayout>
 
 

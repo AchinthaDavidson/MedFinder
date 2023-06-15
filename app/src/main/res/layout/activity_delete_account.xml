@@ -112,6 +112,7 @@
                         android:text="@string/del_btn"
                         android:textColor="@color/white"
                         app:cornerRadius="20dp"
+                        android:onClick="delete"
                         app:layout_constraintBottom_toBottomOf="@id/Del_myacc_cardview"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

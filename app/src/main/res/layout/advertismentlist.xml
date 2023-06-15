@@ -17,29 +17,21 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/adv_id_head"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="40sp"
-                android:text="@string/adv_id"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
 
-            <EditText
-                android:id="@+id/edt_adv_id"
+
+            <TextView
+                android:id="@+id/dis"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:hint="advertisment Id"
+
                 android:inputType="textPersonName"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/adv_img_btn"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"

@@ -1,16 +1,14 @@
 package com.example.medfinder
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.medfinder.adapters.MassageAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 
 
 class chatActivity : AppCompatActivity() {
@@ -65,6 +63,7 @@ class chatActivity : AppCompatActivity() {
 
                         val message=postSnapshot.getValue(Massage::class.java)
                         massageList.add(message!!)
+
                     }
                     massageAdapter.notifyDataSetChanged()
                 }
@@ -81,7 +80,7 @@ class chatActivity : AppCompatActivity() {
 
             val massage=massageBox.text.toString()
 
-            val massageobject=Massage(massage,senderUid)
+            val massageobject= Massage(massage,senderUid)
 
             mDbref.child("chats").child(senderRoom!!).child("massage").push()
                 .setValue(massageobject).addOnSuccessListener {

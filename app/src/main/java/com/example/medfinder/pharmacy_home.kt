@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import com.example.medfinder.fragments.cus_Drug_reqs
+import com.example.medfinder.ui.notifications.NotificationsFragment
 
 class pharmacy_home : AppCompatActivity() {
 
@@ -26,7 +26,8 @@ class pharmacy_home : AppCompatActivity() {
     }
 
     fun inv(view: View){
-        val drugadd = Intent(this,DrugInventory::class.java)
+//        val drugadd = Intent(this,DrugInventory::class.java)
+        val drugadd = Intent(this,findinventry::class.java)
         startActivity(drugadd)
         finish()
     }
@@ -44,7 +45,7 @@ class pharmacy_home : AppCompatActivity() {
     }
 
     fun dug_reqs(view: View){
-        val cus_drugs = Intent(this,cus_drugs::class.java)
+        val cus_drugs = Intent(this,pha_chat_to_customer::class.java)
         startActivity(cus_drugs)
         finish()
     }

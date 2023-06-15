@@ -1,4 +1,4 @@
-package com.example.medfinder
+package com.example.medfinder.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
+import com.example.medfinder.R
+import com.example.medfinder.User
+import com.example.medfinder.chatActivity
 
 class UserAdapter(val context: Context,val userList: ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>()  {
@@ -34,7 +34,7 @@ class UserAdapter(val context: Context,val userList: ArrayList<User>) :
         holder.textName.text=currentUser.name
 
         holder.itemView.setOnClickListener{
-            val intent=Intent(context,chatActivity::class.java)
+            val intent=Intent(context, chatActivity::class.java)
 
             intent.putExtra("name",currentUser.name)
             intent.putExtra("uid",currentUser.uid)

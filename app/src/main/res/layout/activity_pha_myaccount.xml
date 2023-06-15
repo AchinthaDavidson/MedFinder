@@ -101,17 +101,7 @@
                         android:textColor="@color/black"
                         />
 
-                    <EditText
-                        android:id="@+id/edtprofregNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
-                        android:hint="Pharmacy Registration No"
-                        android:inputType="textPersonName"
-                        android:padding="8dp"
-                        android:textColor="@color/black"
-                        />
+
 
                     <EditText
                         android:id="@+id/pha_prof_edtEmail"
@@ -146,21 +136,49 @@
                         android:padding="8dp"
                         android:textColor="@color/black" />
 
-                    <EditText
-                        android:id="@+id/pha_prof_pw"
-                        android:layout_width="match_parent"
-                        android:layout_height="59dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="30dp"
-                        android:hint="Password"
-                        android:inputType="textPassword"
-                        android:padding="8dp"
-                        android:textColor="@color/black" />
+
+
+
 
                 </LinearLayout>
+
+
             </ScrollView>
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/my_Acc_Edit"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:padding="8dp"
+            android:text="@string/acc_edit"
+
+            android:textColor="@color/blue5"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pha_myprof_cardview"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/my_Acc_Delete"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/white"
+            android:padding="8dp"
+            android:onClick="btnDeleteAcc"
+            android:text="@string/acc_delete"
+            android:textColor="@color/blue5"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_Acc_Edit"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

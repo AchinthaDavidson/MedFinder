@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.medfinder.R
 import com.example.medfinder.User
-import com.example.medfinder.UserAdapter
-import com.example.medfinder.adapters.phrmcyAdapter
+import com.example.medfinder.adapters.UserAdapter
 import com.example.medfinder.databinding.FragmentNotificationsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -47,7 +45,7 @@ class NotificationsFragment : Fragment() {
         mDbRef=FirebaseDatabase.getInstance().getReference()
 
         userList =ArrayList()
-        adapter=UserAdapter(context,userList )
+        adapter= UserAdapter(context,userList )
 
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
 
@@ -64,7 +62,7 @@ class NotificationsFragment : Fragment() {
                 userList.clear()
                for(postSnapshot in snapshot.children){
                    val currentUser=postSnapshot.getValue(User::class.java)
-                   if (auth.currentUser?.uid!=currentUser?.uid){
+                   if (auth.currentUser?.uid!=currentUser?.uid ){     // currentUser.type=="user"
                        userList.add(currentUser!!)
                    }
 

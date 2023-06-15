@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".pha_chat_to_customer">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:clickable="true">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
+                tools:listitem="@layout/customerlist"
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
 
 
 

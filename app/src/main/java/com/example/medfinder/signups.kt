@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 
 class signups : AppCompatActivity() {
 
@@ -30,6 +29,7 @@ class signups : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signups)
+        getSupportActionBar()?.hide()
         auth= FirebaseAuth.getInstance()
 
         getname=findViewById(R.id.name)
@@ -90,7 +90,7 @@ class signups : AppCompatActivity() {
 
         mDbref=FirebaseDatabase.getInstance().getReference()
 
-        mDbref.child("user").child(uid).setValue(User(name,email,uid))
+        mDbref.child("user").child(uid).setValue(User(name,email,uid,phone,address,"user"))
 
 
     }
